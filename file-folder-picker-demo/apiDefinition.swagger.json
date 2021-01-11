@@ -1,0 +1,325 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FileFolderPickerDemo",
+    
+    "description": "Sample File Demo Picker to showcase teh capabilities in the flows  ",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Nirmal",
+      "url": "https://nkdews.me/",
+      "email": "me@nkdews.me"
+    }
+  },
+  "host": "raw.githubusercontent.com",
+  "basePath": "/nk-gears/pa-custom-connector-filepicker/main",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+ 
+  "definitions": {
+
+    "FileFolderMetadata": {
+      "description": "Blob metadata",
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "The unique id of the file or folder.",
+                "type": "string"
+              },
+              "name": {
+                "description": "The name of the file or folder.",
+                "type": "string"
+              },
+              "displayName": {
+                "description": "The display name of the file or folder.",
+                "type": "string"
+              },
+               
+              "mediaType": {
+                "description": "The media type of the file or folder.",
+                "type": "string"
+              },
+              "isFolder": {
+                "description": "A boolean value (true, false) to indicate whether or not the blob is a folder.",
+                "type": "boolean"
+              }
+            }
+          },
+          "description": "folders"
+        }
+
+      }
+    }
+
+  },
+  "parameters": {
+
+    "FolderIdFromPath":{
+      "name": "folderId",
+      "in": "path",
+      "description": "Specify the folder ",
+      "required": true,
+      "x-ms-url-encoding": "single",
+      "x-ms-dynamic-values": {
+        "capability": "file-picker",
+        "parameters": {
+          "isFolder": true,
+          "fileFilter": [],
+          "dataset": null
+      
+        },
+        "value-path": "id",
+        "value-collection": "items",
+        "value-title": "name"
+      },
+      "x-ms-summary": "Folder ID",
+      "x-ms-dynamic-tree": {
+        "settings": {
+          "canSelectParentNodes": true,
+          "canSelectLeafNodes": false
+        },
+        "open": {
+          "operationId": "ListRootFolders",
+          "itemValuePath": "id",
+          "itemTitlePath": "displayName",
+          "itemIsParent": "(isFolder eq true)",
+          "itemFullTitlePath": "displayName",
+          "itemsPath": "items"
+         
+        },
+        "browse": {
+          "operationId": "ListFolderContents",
+          "itemValuePath": "id",
+          "itemsPath": "items",
+          "itemTitlePath": "displayName",
+          "itemIsParent": "(isFolder eq true)",
+          "itemFullTitlePath": "displayName",
+          "parameters": {
+            "folderId": {
+              "selectedItemValuePath": "id"
+            }
+          }
+        }
+      },
+      "type": "string"
+    }
+
+  },
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://nkdews.me/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://nkdews.me"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "AI;Data"
+    }
+  ],
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": [],
+ "paths":{
+ 
+    "/mock-data/root/all.json": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/FileFolderMetadata"
+                  },
+                  "description": "folders"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Operation Failed."
+          }
+        },
+        "tags": [
+          "file",
+          "folder"
+        ],
+        "summary": "Root Folders",
+        "operationId": "ListRootFolders",
+        "parameters": [
+     
+        ],
+        "description": "Get Root Folders"
+      }
+    },
+
+    "/mock-data/{folderId}": {
+      "get": {
+        "tags": [
+          "file",
+          "folder"
+        ],
+        "summary": "List files in folder",
+        "description": "List files in a Procore Project folder",
+        "operationId": "ListFolderContents",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/FolderIdFromPath"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                 
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/FileFolderMetadata"
+                  },
+                  "description": "folders"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Operation Failed."
+          }
+        },
+        "deprecated": false,
+        "x-ms-visibility": "important"
+      }
+    },
+    "/mock-data/files/upload/{folderId}": {
+      "post": {
+        "tags": [
+          "file",
+          "folder"
+        ],
+        "summary": "Sample Action for File Picker",
+        "description": "Sample Action for File Picker",
+        "operationId": "FilePickerSample",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "type": "string",
+            "description": "Pick the folder to which you want to upload",
+            "required": true,
+            "x-ms-url-encoding": "single",
+            "x-ms-dynamic-values": {
+              "capability": "file-picker",
+              "parameters": {
+                "isFolder": true,
+                "fileFilter": [],
+                "dataset": null
+              },
+              "value-path": "id",
+              "value-collection": "items",
+              "value-title": "name"
+            },
+            "x-ms-summary": "Folder ID",
+            "x-ms-dynamic-tree": {
+              "settings": {
+                "canSelectParentNodes": true,
+                "canSelectLeafNodes": false
+              },
+              "open": {
+                "operationId": "ListRootFolders",
+                "itemValuePath": "id",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "itemsPath": "items"
+              },
+              "browse": {
+                "operationId": "ListFolderContents",
+                "itemValuePath": "id",
+                "itemsPath": "items",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "parameters": {
+                  "folderId": {
+                    "selectedItemValuePath": "id"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/FileFolderMetadata"
+                  },
+                  "description": "folders"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Operation Failed."
+          }
+        },
+        "deprecated": false,
+        "x-ms-visibility": "important"
+      }
+    }
+
+ },
+  "x-ms-capabilities": {
+    "file-picker": {
+      "open": {
+        "operationId": "ListRootFolders"
+      },
+      "browse": {
+        "operationId": "ListFolderContents",
+        "parameters": {
+          "folderId": {
+            "value-property": "id"
+          }
+        }
+      },
+      "value-title": "displayName",
+      "value-collection": "items",
+      "value-folder-property": "isFolder",
+      "value-media-property": "mediaType"
+    }
+  }
+}

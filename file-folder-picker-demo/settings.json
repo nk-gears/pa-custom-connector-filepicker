@@ -1,0 +1,9 @@
+{
+  "connectorId": "shared_folderpickerdemo-5fe2a37b07fb8af8e1-5f5103fd5644acc721",
+  "environment": "721504e2-4a55-4ca6-a006-d9689112d6f7",
+  "apiProperties": "apiProperties.json",
+  "apiDefinition": "apiDefinition.swagger.json",
+  "icon": "icon.png",
+  "powerAppsUrl": "https://api.powerapps.com",
+  "powerAppsApiVersion": "2016-11-01"
+}
