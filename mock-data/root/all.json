@@ -5,14 +5,14 @@
             "name": "travel",
             "displayName": "/travel",
             "isFolder": true,
-           
+            "Path": "/travel",
             "mediaType": null
         }, {
             "id": "3321",
             "name": "recipes",
             "displayName": "/recipes",
             "isFolder": true,
-           
+            "Path": "/recipes",
             "mediaType": null
         }
     ]
