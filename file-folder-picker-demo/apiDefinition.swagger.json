@@ -11,8 +11,8 @@
       "email": "me@nkdews.me"
     }
   },
-  "host": "raw.githubusercontent.com",
-  "basePath": "/nk-gears/pa-custom-connector-filepicker/main",
+  "host": "cdn.jsdelivr.net",
+  "basePath": "/gh/nk-gears/pa-custom-connector-filepicker@main",
   "schemes": [
     "https"
   ],
@@ -149,6 +149,7 @@
                   "description": "folders"
                 }
               }
+             
             }
           },
           "default": {
@@ -168,7 +169,7 @@
       }
     },
 
-    "/mock-data/{folderId}": {
+    "/mock-data/{folderId}.json": {
       "get": {
         "tags": [
           "file",

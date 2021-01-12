@@ -1,5 +1,5 @@
 { "items":[
-    { "id":"3211", "name": "mushroom", "display_name":"/recipes/mushroom" , "isFolder":true },
+    { "id":"3211", "name": "mushroom-1", "display_name":"/recipes/mushroom" , "isFolder":true },
     { "id":"3212", "name": "bread", "display_name":"/recipes/bread" , "isFolder":true },
     { "id":"3213", "name": "chickpeas", "display_name":"/recipes/chickpeas", "isFolder":true },
     { "id":"3214", "name": "brocoli", "display_name":"/recipes/brocoli", "isFolder":true },
