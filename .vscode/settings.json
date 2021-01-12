@@ -1,0 +1,12 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "file-folder-picker-demo/tmp": true,
+        "**/tmp": true
+    },
+    "explorerExclude.backup": null
+}

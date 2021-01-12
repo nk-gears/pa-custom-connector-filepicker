@@ -95,17 +95,17 @@
     }
   },
   "parameters": {
-
-    "FolderIdFromPath":{
+    "FolderId":{
       "name": "folderId",
       "in": "path",
-      "description": "Specify the folder ",
+      "type": "string",
+      "description": "folder Id",
       "required": true,
       "x-ms-url-encoding": "single",
-     
-      "type": "string"
+      "x-ms-summary": "Folder ID"
+   
     },
-    "FolderPicker": {
+    "FolderIdFromPath":{
       "name": "folderId",
       "in": "path",
       "type": "string",
@@ -152,7 +152,7 @@
         }
       }
     },
-    "FilePicker":{
+    "FileIdFromPath":{
       "name": "fileId",
       "in": "path",
       "type": "string",
@@ -162,7 +162,7 @@
       "x-ms-dynamic-values": {
         "capability": "file-picker",
         "parameters": {
-          "isFolder": false,
+          "isFolder": true,
           "fileFilter": [],
           "dataset": null
         },
@@ -199,6 +199,7 @@
         }
       }
     }
+
   },
   "x-ms-connector-metadata": [
     {
@@ -244,7 +245,7 @@
     },
 
     "/{folderId}.json": {
-      "get": {
+      "post": {
         "tags": [
           "file",
           "folder"
@@ -260,7 +261,53 @@
         ],
         "parameters": [
           {
-            "$ref": "#/parameters/FolderIdFromPath"
+            "name": "folderId",
+            "in": "path",
+            "description": "Specify the folder ",
+            "required": true,
+            "x-ms-url-encoding": "single",
+            "x-ms-dynamic-values": {
+              "capability": "file-picker",
+              "parameters": {
+                "isFolder": true,
+                "fileFilter": [],
+                "dataset": null
+            
+              },
+              "value-path": "id",
+              "value-collection": "drive_items",
+              "value-title": "name"
+            },
+            "x-ms-summary": "Folder ID",
+            "x-ms-dynamic-tree": {
+              "settings": {
+                "canSelectParentNodes": true,
+                "canSelectLeafNodes": false
+              },
+              "open": {
+                "operationId": "ListRootFolders",
+                "itemValuePath": "id",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "itemsPath": "drive_items"
+               
+              },
+              "browse": {
+                "operationId": "ListFolderContents",
+                "itemValuePath": "id",
+                "itemsPath": "drive_items",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "parameters": {
+                  "folderId": {
+                    "selectedItemValuePath": "id"
+                  }
+                }
+              }
+            },
+            "type": "string"
           }
         ],
         "responses": {
@@ -276,7 +323,7 @@
       }
     },
     "/files/upload/{folderId}": {
-      "get": {
+      "post": {
         "tags": [
           "file",
           "folder"
@@ -291,7 +338,11 @@
           "application/json"
         ],
         "parameters": [
-          {"$ref": "#/parameters/FolderPicker"}
+
+          {
+            "$ref": "#/parameters/FolderIdFromPath"
+          }
+          
         ],
         "responses": {
           "200": {
@@ -305,7 +356,7 @@
         "x-ms-visibility": "important"
       }
     },
-    "/files/{fileId}/download": {
+    "/files/download/{fileId}": {
       "get": {
         "tags": [
           "file",
@@ -321,7 +372,9 @@
           "application/json"
         ],
         "parameters": [
-          {"$ref": "#/parameters/FilePicker"}
+          {
+            "$ref": "#/parameters/FileIdFromPath"
+          }
         ],
         "responses": {
           "200": {
