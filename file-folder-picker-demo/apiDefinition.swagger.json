@@ -11,8 +11,8 @@
       "email": "me@nkdews.me"
     }
   },
-  "host": "cdn.jsdelivr.net",
-  "basePath": "/gh/nk-gears/pa-custom-connector-filepicker@main",
+  "host": "picker-demo.vercel.app",
+  "basePath": "/",
   "schemes": [
     "https"
   ],
@@ -20,45 +20,79 @@
   "produces": [],
  
   "definitions": {
-
-    "FileFolderMetadata": {
-      "description": "Blob metadata",
+     "FileFolderMetadata": {
+      "description": "file folder metadata",
       "type": "object",
       "properties": {
-        "items": {
+        "drive_items": {
           "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "id": {
-                "description": "The unique id of the file or folder.",
-                "type": "string"
-              },
-              "name": {
-                "description": "The name of the file or folder.",
-                "type": "string"
-              },
-              "displayName": {
-                "description": "The display name of the file or folder.",
-                "type": "string"
-              },
-               
               "mediaType": {
                 "description": "The media type of the file or folder.",
+                "type": "string"
+              },
+              "Path": {
+                "description": "Path of the file",
                 "type": "string"
               },
               "isFolder": {
                 "description": "A boolean value (true, false) to indicate whether or not the blob is a folder.",
                 "type": "boolean"
+              },
+              "id": {
+                "type": "string",
+                "description": "Folder ID",
+                "title": "Folder ID"
+              },
+              "Id": {
+                "type": "string",
+                "description": "Folder ID",
+                "title": "Folder ID"
+              },
+              "displayName": {
+                "type": "string",
+                "description": "Folder Name",
+                "title": "Folder Name:"
+              },
+              "name": {
+                "type": "string",
+                "description": "Folder Name",
+                "title": "Folder Name:"
+              },
+              "parent_id": {
+                "type": "integer",
+                "format": "int32",
+                "description": "Folder Parent ID",
+                "title": "Folder Parent ID:"
+              },
+              "private": {
+                "type": "boolean",
+                "description": "Is Folder Private",
+                "title": "Is Folder Private:"
+              },
+              "updated_at": {
+                "type": "string",
+                "description": "Folder Updated At",
+                "title": "Folder Updated At:"
+              },
+              "is_tracked": {
+                "type": "boolean",
+                "description": "Is Folder Tracked",
+                "title": "Is Folder Tracked:"
+              },
+              "name_with_path": {
+                "type": "string",
+                "description": "Folder Name with Path",
+                "title": "Folder Name with Path:"
               }
             }
           },
           "description": "folders"
         }
-
       }
     }
-
   },
   "parameters": {
 
@@ -77,7 +111,7 @@
       
         },
         "value-path": "id",
-        "value-collection": "items",
+        "value-collection": "drive_items",
         "value-title": "name"
       },
       "x-ms-summary": "Folder ID",
@@ -92,13 +126,13 @@
           "itemTitlePath": "displayName",
           "itemIsParent": "(isFolder eq true)",
           "itemFullTitlePath": "displayName",
-          "itemsPath": "items"
+          "itemsPath": "drive_items"
          
         },
         "browse": {
           "operationId": "ListFolderContents",
           "itemValuePath": "id",
-          "itemsPath": "items",
+          "itemsPath": "drive_items",
           "itemTitlePath": "displayName",
           "itemIsParent": "(isFolder eq true)",
           "itemFullTitlePath": "displayName",
@@ -133,27 +167,14 @@
   "tags": [],
  "paths":{
  
-    "/mock-data/root/all.json": {
+    "/root/all.json": {
       "get": {
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/FileFolderMetadata"
-                  },
-                  "description": "folders"
+                  "$ref": "#/definitions/FileFolderMetadata"
                 }
-              }
-             
-            }
-          },
-          "default": {
-            "description": "Operation Failed."
           }
         },
         "tags": [
@@ -169,7 +190,7 @@
       }
     },
 
-    "/mock-data/{folderId}.json": {
+    "/{folderId}.json": {
       "get": {
         "tags": [
           "file",
@@ -193,35 +214,22 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "object",
-              "properties": {
-                 
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/FileFolderMetadata"
-                  },
-                  "description": "folders"
-                }
-              }
+              "$ref": "#/definitions/FileFolderMetadata"
             }
-          },
-          "default": {
-            "description": "Operation Failed."
           }
         },
         "deprecated": false,
         "x-ms-visibility": "important"
       }
     },
-    "/mock-data/files/upload/{folderId}": {
+    "/files/upload/{folderId}": {
       "post": {
         "tags": [
           "file",
           "folder"
         ],
-        "summary": "Sample Action for File Picker",
-        "description": "Sample Action for File Picker",
+        "summary": "Sample Action for Folder Picker",
+        "description": "Sample Action for Folder Picker",
         "operationId": "FilePickerSample",
         "consumes": [
           "application/json"
@@ -245,7 +253,7 @@
                 "dataset": null
               },
               "value-path": "id",
-              "value-collection": "items",
+              "value-collection": "drive_items",
               "value-title": "name"
             },
             "x-ms-summary": "Folder ID",
@@ -260,12 +268,12 @@
                 "itemTitlePath": "displayName",
                 "itemIsParent": "(isFolder eq true)",
                 "itemFullTitlePath": "displayName",
-                "itemsPath": "items"
+                "itemsPath": "drive_items"
               },
               "browse": {
                 "operationId": "ListFolderContents",
                 "itemValuePath": "id",
-                "itemsPath": "items",
+                "itemsPath": "drive_items",
                 "itemTitlePath": "displayName",
                 "itemIsParent": "(isFolder eq true)",
                 "itemFullTitlePath": "displayName",
@@ -282,20 +290,84 @@
           "200": {
             "description": "OK",
             "schema": {
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/definitions/FileFolderMetadata"
-                  },
-                  "description": "folders"
+              "$ref": "#/definitions/FileFolderMetadata"
+            }
+          }
+        },
+        "deprecated": false,
+        "x-ms-visibility": "important"
+      }
+    },
+    "/files/download/{fileId}": {
+      "post": {
+        "tags": [
+          "file",
+          "folder"
+        ],
+        "summary": "Sample Action for File Picker",
+        "description": "Sample Action for File Picker",
+        "operationId": "FolderPickerSample",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "type": "string",
+            "description": "Pick the file to which you want to download",
+            "required": true,
+            "x-ms-url-encoding": "single",
+            "x-ms-dynamic-values": {
+              "capability": "file-picker",
+              "parameters": {
+                "isFolder": false,
+                "fileFilter": [],
+                "dataset": null
+              },
+              "value-path": "id",
+              "value-collection": "drive_items",
+              "value-title": "name"
+            },
+            "x-ms-summary": "Folder ID",
+            "x-ms-dynamic-tree": {
+              "settings": {
+                "canSelectParentNodes": false,
+                "canSelectLeafNodes": true
+              },
+              "open": {
+                "operationId": "ListRootFolders",
+                "itemValuePath": "id",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "itemsPath": "drive_items"
+              },
+              "browse": {
+                "operationId": "ListFolderContents",
+                "itemValuePath": "id",
+                "itemsPath": "drive_items",
+                "itemTitlePath": "displayName",
+                "itemIsParent": "(isFolder eq true)",
+                "itemFullTitlePath": "displayName",
+                "parameters": {
+                  "folderId": {
+                    "selectedItemValuePath": "id"
+                  }
                 }
               }
             }
-          },
-          "default": {
-            "description": "Operation Failed."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FileFolderMetadata"
+            }
           }
         },
         "deprecated": false,
@@ -318,7 +390,7 @@
         }
       },
       "value-title": "displayName",
-      "value-collection": "items",
+      "value-collection": "drive_items",
       "value-folder-property": "isFolder",
       "value-media-property": "mediaType"
     }

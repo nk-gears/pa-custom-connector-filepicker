@@ -1,11 +1,11 @@
-{ "items":[
-    { "id":"4351", "name": "Japan", "display_name":"/travel/Japan" , "isFolder":true },
-    { "id":"4352", "name": "London", "display_name":"/recipes/London" , "isFolder":true },
-    { "id":"4353", "name": "Singapore", "display_name":"/recipes/Singapore" , "isFolder":true },
-    { "id":"4354", "name": "Malaysia", "display_name":"/recipes/Malaysia" , "isFolder":true },
-    { "id":"4355", "name": "Srilanka", "display_name":"/recipes/Srilanka" , "isFolder":true },
-    { "id":"4356", "name": "India", "display_name":"/recipes/India" , "isFolder":true },
-    { "id":"4357", "name": "Nepal", "display_name":"/recipes/Nepal" , "isFolder":true },
-    { "id":"4357", "name": "Index.md", "display_name":"/recipes/Nepal/index.md" , "isFolder":false, "mediaType":"doc" }
+{ "drive_items":[
+    { "id":"4351", "name": "Japan", "Path":"/travel/Japan","displayName":"Japan" , "isFolder":true ,"mediaType":null  },
+    { "id":"4352", "name": "London", "Path":"/travel/London","displayName":"London" , "isFolder":true ,"mediaType":null  },
+    { "id":"4353", "name": "Singapore","Path":"/travel/Singapore", "displayName":"Singapore" , "isFolder":true ,"mediaType":null  },
+    { "id":"4354", "name": "Malaysia","Path":"/travel/Malaysia", "displayName":"Malaysia" , "isFolder":true ,"mediaType":null  },
+    { "id":"4355", "name": "Srilanka","Path":"/travel/Srilanka", "displayName":"Srilanka" , "isFolder":true ,"mediaType":null  },
+    { "id":"4356", "name": "India","Path":"/travel/India", "displayName":"India" , "isFolder":true ,"mediaType":null  },
+    { "id":"4357", "name": "Nepal","Path":"/travel/Nepal", "displayName":"Nepal" , "isFolder":true ,"mediaType":null  },
+    { "id":"4357", "name": "Index.md","Path":"/travel/index.md", "displayName":"index.md" , "isFolder":false, "mediaType":"image/jpeg" }
 ]
 }  

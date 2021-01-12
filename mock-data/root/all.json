@@ -1,5 +1,5 @@
-{ "items":[
-{ "id":"4315", "name": "travel", "display_name":"/travel" },
-{ "id":"3321", "name": "travel", "display_name":"/recipes" }
+{ "drive_items":[
+{ "id":"4315", "name": "travel", "displayName":"/travel","isFolder":true,"Path":"/travel","mediaType":null },
+{ "id":"3321", "name": "recipes", "displayName":"/recipes","isFolder":true,"Path":"/recipes","mediaType":null }
 ]
 }
